@@ -20,8 +20,14 @@ public class ScheduleTransportController {
     }
 
     @PostMapping
-    public ScheduleTransportEntity createUser(@RequestBody ScheduleTransportEntity schedule) {
+    public ScheduleTransportEntity createSchedule(@RequestBody ScheduleTransportEntity schedule) {
         return scheduleTransportService.createSchedule(schedule);
+    }
+
+    @PutMapping("/{id}")
+    public ScheduleTransportEntity updateSchedule(@PathVariable Long id,
+                                                  @RequestBody ScheduleTransportEntity schedule) {
+        return scheduleTransportService.updateSchedule(id, schedule);
     }
 
 }

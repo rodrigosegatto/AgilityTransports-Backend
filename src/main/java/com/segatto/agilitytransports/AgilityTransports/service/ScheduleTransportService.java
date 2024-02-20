@@ -2,6 +2,7 @@ package com.segatto.agilitytransports.AgilityTransports.service;
 
 import com.segatto.agilitytransports.AgilityTransports.entity.ScheduleTransportEntity;
 import com.segatto.agilitytransports.AgilityTransports.repository.ScheduleTransportRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,5 +20,17 @@ public class ScheduleTransportService {
 
     public ScheduleTransportEntity createSchedule(ScheduleTransportEntity schedule) {
         return scheduleTransportRepository.save(schedule);
+    }
+
+    public ScheduleTransportEntity updateSchedule(Long id, ScheduleTransportEntity schedule) {
+        ScheduleTransportEntity scheduleToBeUpdated = scheduleTransportRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(String.valueOf(id)));
+
+        if (schedule.getSignCode() != null)
+            scheduleToBeUpdated.setSignCode(schedule.getSignCode());
+
+        if (schedule.getScheduleDate() != null)
+            scheduleToBeUpdated.setScheduleDate(schedule.getScheduleDate());
+
+        return scheduleTransportRepository.save(scheduleToBeUpdated);
     }
 }
