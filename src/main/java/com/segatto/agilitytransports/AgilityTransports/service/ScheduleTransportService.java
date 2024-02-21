@@ -18,6 +18,13 @@ public class ScheduleTransportService {
         return scheduleTransportRepository.findAll();
     }
 
+    public ScheduleTransportEntity getScheduleById(Long id) {
+        ScheduleTransportEntity schedule = scheduleTransportRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(String.valueOf(id)));
+
+        return scheduleTransportRepository.save(schedule);
+    }
+
     public ScheduleTransportEntity createSchedule(ScheduleTransportEntity schedule) {
         return scheduleTransportRepository.save(schedule);
     }

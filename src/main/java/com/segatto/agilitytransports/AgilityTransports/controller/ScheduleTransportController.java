@@ -24,6 +24,16 @@ public class ScheduleTransportController {
         return scheduleTransportService.getAllSchedules();
     }
 
+    @GetMapping("/{id}")
+    @ResponseStatus(code = HttpStatus.OK)
+    public ScheduleTransportEntity getScheduleById(@PathVariable Long id){
+        try {
+            return scheduleTransportService.getScheduleById(id);
+        } catch (EntityNotFoundException ex) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, MessagesReturnResponse.NOT_FOUND_REGISTRY, ex);
+        }
+    }
+
     @PostMapping
     @ResponseStatus(code = HttpStatus.CREATED)
     public ScheduleTransportEntity createSchedule(@RequestBody ScheduleTransportEntity schedule) {
