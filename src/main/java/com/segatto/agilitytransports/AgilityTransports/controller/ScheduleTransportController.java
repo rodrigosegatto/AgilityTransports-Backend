@@ -51,4 +51,10 @@ public class ScheduleTransportController {
         }
     }
 
+    @DeleteMapping("/{id}")
+    @ResponseStatus(code = HttpStatus.OK)
+    public void deleteSchedule(@PathVariable Long id) {
+        scheduleTransportService.deleteSchedule(id);
+    }
+
 }

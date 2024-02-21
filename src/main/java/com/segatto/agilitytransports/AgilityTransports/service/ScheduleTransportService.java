@@ -40,4 +40,8 @@ public class ScheduleTransportService {
 
         return scheduleTransportRepository.save(scheduleToBeUpdated);
     }
+
+    public void deleteSchedule(Long id) {
+        scheduleTransportRepository.deleteById(id);
+    }
 }
