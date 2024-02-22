@@ -24,4 +24,7 @@ public class ScheduleTransportEntity {
     @Column(name = "schedule_date")
     private Instant scheduleDate;
 
+    @Column(name = "ds_datail")
+    private String detailDescription;
+
 }

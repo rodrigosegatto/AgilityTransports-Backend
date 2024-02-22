@@ -38,6 +38,9 @@ public class ScheduleTransportService {
         if (schedule.getScheduleDate() != null)
             scheduleToBeUpdated.setScheduleDate(schedule.getScheduleDate());
 
+        if (schedule.getDetailDescription() != null)
+            scheduleToBeUpdated.setDetailDescription(schedule.getDetailDescription());
+
         return scheduleTransportRepository.save(scheduleToBeUpdated);
     }
 
