@@ -1,6 +1,7 @@
 package com.segatto.agilitytransports.AgilityTransports.controller;
 
 import com.segatto.agilitytransports.AgilityTransports.commons.messages.MessagesReturnResponse;
+import com.segatto.agilitytransports.AgilityTransports.filter.ScheduleTransportFilter;
 import com.segatto.agilitytransports.AgilityTransports.dto.in.ScheduleTransportPostDtoIn;
 import com.segatto.agilitytransports.AgilityTransports.dto.in.ScheduleTransportPutDtoIn;
 import com.segatto.agilitytransports.AgilityTransports.dto.out.ScheduleTransportGetDtoOut;
@@ -30,8 +31,8 @@ public class ScheduleTransportController {
 
     @GetMapping
     @ResponseStatus(code = HttpStatus.OK)
-    public List<ScheduleTransportGetDtoOut> getAllSchedules() {
-        List<ScheduleTransportEntity> schedules = scheduleTransportService.getAllSchedules();
+    public List<ScheduleTransportGetDtoOut> getAllSchedules(@ModelAttribute ScheduleTransportFilter filter) {
+        List<ScheduleTransportEntity> schedules = scheduleTransportService.getAllSchedules(filter);
 
         List<ScheduleTransportGetDtoOut> schedulesDtoOut = schedules.stream()
                 .map(schedule -> scheduleTransportMapper.convertEntityToGetDtoOut(schedule))
