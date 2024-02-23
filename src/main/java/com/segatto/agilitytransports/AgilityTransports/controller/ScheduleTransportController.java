@@ -37,23 +37,24 @@ public class ScheduleTransportController {
         return scheduleTransportService.getAllSchedules(pageable);
     }
 
-    @GetMapping("/search/by-sign-code")
-    @ResponseStatus(code = HttpStatus.OK)
-    public Page<ScheduleTransportEntity> getAllSchedules(@RequestParam String signCode,
-                                                         Pageable pageable) {
-        return scheduleTransportService.getAllSchedulesBySignCode(signCode, pageable);
-    }
-
     @GetMapping("/search")
     @ResponseStatus(code = HttpStatus.OK)
-    public List<ScheduleTransportGetDtoOut> getAllSchedulesByFilter(@ModelAttribute ScheduleTransportFilter filter) {
-        List<ScheduleTransportEntity> schedules = scheduleTransportService.getAllSchedulesByFilter(filter);
+    public Page<ScheduleTransportEntity> getAllSchedulesByFilter(@ModelAttribute ScheduleTransportFilter filter) {
+        return scheduleTransportService.getAllSchedulesByFilter(filter);
+        /*Page<ScheduleTransportEntity> schedules = scheduleTransportService.getAllSchedulesByFilter(filter);
 
         List<ScheduleTransportGetDtoOut> schedulesDtoOut = schedules.stream()
                 .map(schedule -> scheduleTransportMapper.convertEntityToGetDtoOut(schedule))
                 .collect(Collectors.toList());
 
-        return schedulesDtoOut;
+        return schedulesDtoOut;*/
+    }
+
+    @GetMapping("/search/by-sign-code")
+    @ResponseStatus(code = HttpStatus.OK)
+    public Page<ScheduleTransportEntity> getAllSchedules(@RequestParam String signCode,
+                                                         Pageable pageable) {
+        return scheduleTransportService.getAllSchedulesBySignCode(signCode, pageable);
     }
 
     @GetMapping("/{id}")

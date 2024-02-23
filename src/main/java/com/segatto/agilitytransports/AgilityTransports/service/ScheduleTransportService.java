@@ -29,8 +29,7 @@ public class ScheduleTransportService {
         return scheduleTransportRepository.findBySignCode(signCode, pageable);
     }
 
-    public List<ScheduleTransportEntity> getAllSchedulesByFilter(ScheduleTransportFilter filter) {
-        Long total = scheduleTransportCustomRepository.getTotalSchedulesByFilter(filter);
+    public Page<ScheduleTransportEntity> getAllSchedulesByFilter(ScheduleTransportFilter filter) {
         return scheduleTransportCustomRepository.findByFilter(filter);
     }
 
