@@ -12,6 +12,8 @@ import com.segatto.agilitytransports.AgilityTransports.mapper.ScheduleTransportM
 import com.segatto.agilitytransports.AgilityTransports.service.ScheduleTransportService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
@@ -31,8 +33,21 @@ public class ScheduleTransportController {
 
     @GetMapping
     @ResponseStatus(code = HttpStatus.OK)
-    public List<ScheduleTransportGetDtoOut> getAllSchedules(@ModelAttribute ScheduleTransportFilter filter) {
-        List<ScheduleTransportEntity> schedules = scheduleTransportService.getAllSchedules(filter);
+    public Page<ScheduleTransportEntity> getAllSchedules(Pageable pageable) {
+        return scheduleTransportService.getAllSchedules(pageable);
+    }
+
+    @GetMapping("/search/by-sign-code")
+    @ResponseStatus(code = HttpStatus.OK)
+    public Page<ScheduleTransportEntity> getAllSchedules(@RequestParam String signCode,
+                                                         Pageable pageable) {
+        return scheduleTransportService.getAllSchedulesBySignCode(signCode, pageable);
+    }
+
+    @GetMapping("/search")
+    @ResponseStatus(code = HttpStatus.OK)
+    public List<ScheduleTransportGetDtoOut> getAllSchedulesByFilter(@ModelAttribute ScheduleTransportFilter filter) {
+        List<ScheduleTransportEntity> schedules = scheduleTransportService.getAllSchedulesByFilter(filter);
 
         List<ScheduleTransportGetDtoOut> schedulesDtoOut = schedules.stream()
                 .map(schedule -> scheduleTransportMapper.convertEntityToGetDtoOut(schedule))

@@ -31,6 +31,18 @@ public class ScheduleTransportCustomRepository {
         return queryFinal.getResultList();
     }
 
+    public Long getTotalSchedulesByFilter(ScheduleTransportFilter filter) {
+        this.query = "select count(1) from ScheduleTransportEntity as ST where 1=1";
+
+        this.addParameterFilterInQuery(filter);
+
+        this.queryFinal = entityManager.createQuery(query, ScheduleTransportEntity.class);
+
+        this.setParameterFilter(filter);
+
+        return (Long) queryFinal.getSingleResult();
+    }
+
     private void addParameterFilterInQuery(ScheduleTransportFilter filter) {
         if (filter.getScheduleDateStart() != null)
             this.query = this.query + " and scheduleDate >= :scheduleDateStart";

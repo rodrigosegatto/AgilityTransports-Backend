@@ -6,6 +6,8 @@ import com.segatto.agilitytransports.AgilityTransports.repository.ScheduleTransp
 import com.segatto.agilitytransports.AgilityTransports.repository.ScheduleTransportRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,7 +21,16 @@ public class ScheduleTransportService {
     @Autowired
     private ScheduleTransportCustomRepository scheduleTransportCustomRepository;
 
-    public List<ScheduleTransportEntity> getAllSchedules(ScheduleTransportFilter filter) {
+    public Page<ScheduleTransportEntity> getAllSchedules(Pageable pageable) {
+        return scheduleTransportRepository.findAll(pageable);
+    }
+
+    public Page<ScheduleTransportEntity> getAllSchedulesBySignCode(String signCode, Pageable pageable) {
+        return scheduleTransportRepository.findBySignCode(signCode, pageable);
+    }
+
+    public List<ScheduleTransportEntity> getAllSchedulesByFilter(ScheduleTransportFilter filter) {
+        Long total = scheduleTransportCustomRepository.getTotalSchedulesByFilter(filter);
         return scheduleTransportCustomRepository.findByFilter(filter);
     }
 
