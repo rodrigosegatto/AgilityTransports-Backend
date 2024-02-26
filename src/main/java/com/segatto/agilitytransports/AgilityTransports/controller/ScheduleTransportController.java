@@ -1,5 +1,6 @@
 package com.segatto.agilitytransports.AgilityTransports.controller;
 
+import com.segatto.agilitytransports.AgilityTransports.commons.PaginationSort;
 import com.segatto.agilitytransports.AgilityTransports.commons.messages.MessagesReturnResponse;
 import com.segatto.agilitytransports.AgilityTransports.filter.ScheduleTransportFilter;
 import com.segatto.agilitytransports.AgilityTransports.dto.in.ScheduleTransportPostDtoIn;
@@ -19,7 +20,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/schedule-transport")
@@ -39,8 +39,9 @@ public class ScheduleTransportController {
 
     @GetMapping("/search")
     @ResponseStatus(code = HttpStatus.OK)
-    public Page<ScheduleTransportEntity> getAllSchedulesByFilter(@ModelAttribute ScheduleTransportFilter filter) {
-        return scheduleTransportService.getAllSchedulesByFilter(filter);
+    public Page<ScheduleTransportEntity> getAllSchedulesByFilter(@ModelAttribute ScheduleTransportFilter filter,
+                                                                 @RequestParam(required = false) List<String> sort) {
+        return scheduleTransportService.getAllSchedulesByFilter(filter, sort);
         /*Page<ScheduleTransportEntity> schedules = scheduleTransportService.getAllSchedulesByFilter(filter);
 
         List<ScheduleTransportGetDtoOut> schedulesDtoOut = schedules.stream()

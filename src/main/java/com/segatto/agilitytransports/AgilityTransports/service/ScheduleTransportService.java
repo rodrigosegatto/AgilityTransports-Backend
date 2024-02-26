@@ -1,5 +1,6 @@
 package com.segatto.agilitytransports.AgilityTransports.service;
 
+import com.segatto.agilitytransports.AgilityTransports.commons.PaginationSort;
 import com.segatto.agilitytransports.AgilityTransports.filter.ScheduleTransportFilter;
 import com.segatto.agilitytransports.AgilityTransports.entity.ScheduleTransportEntity;
 import com.segatto.agilitytransports.AgilityTransports.repository.ScheduleTransportCustomRepository;
@@ -29,8 +30,8 @@ public class ScheduleTransportService {
         return scheduleTransportRepository.findBySignCode(signCode, pageable);
     }
 
-    public Page<ScheduleTransportEntity> getAllSchedulesByFilter(ScheduleTransportFilter filter) {
-        return scheduleTransportCustomRepository.findByFilter(filter);
+    public Page<ScheduleTransportEntity> getAllSchedulesByFilter(ScheduleTransportFilter filter, List<String> sort) {
+        return scheduleTransportCustomRepository.findByFilter(filter, sort);
     }
 
     public ScheduleTransportEntity getScheduleById(Long id) {
