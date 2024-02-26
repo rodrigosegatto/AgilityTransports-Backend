@@ -57,14 +57,14 @@ public class ScheduleTransportController {
 
     @GetMapping("/search/by-sign-code")
     @ResponseStatus(code = HttpStatus.OK)
-    public Page<ScheduleTransportEntity> getAllSchedules(@RequestParam String signCode,
-                                                         Pageable pageable) {
+    public Page<ScheduleTransportEntity> getAllSchedules(@RequestParam @Parameter(description = "Sign Code") String signCode,
+                                                         @ParameterObject Pageable pageable) {
         return scheduleTransportService.getAllSchedulesBySignCode(signCode, pageable);
     }
 
     @GetMapping("/{id}")
     @ResponseStatus(code = HttpStatus.OK)
-    public ScheduleTransportGetDtoOut getScheduleById(@PathVariable Long id){
+    public ScheduleTransportGetDtoOut getScheduleById(@PathVariable @Parameter(description = "Id of schedule") Long id){
         try {
             ScheduleTransportEntity schedule = scheduleTransportService.getScheduleById(id);
             ScheduleTransportGetDtoOut scheduleDtoOut = scheduleTransportMapper.convertEntityToGetDtoOut(schedule);
