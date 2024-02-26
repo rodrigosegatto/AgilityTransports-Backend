@@ -12,8 +12,12 @@ public class PaginationSort {
 
     private static final String ASC = "ASC";
     private static final String DESC = "DESC";
+    private static final String EMPTY = "";
 
     public String getOrderByConvertedToString(List<String> sortList){
+        if (sortList == null)
+                return EMPTY;
+
         List<Sort.Order> orders = getOrderList(sortList);
         return getOrdersConvertedToString(orders);
     }

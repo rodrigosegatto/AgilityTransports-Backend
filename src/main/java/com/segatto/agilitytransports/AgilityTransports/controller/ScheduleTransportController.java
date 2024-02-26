@@ -11,7 +11,9 @@ import com.segatto.agilitytransports.AgilityTransports.dto.out.ScheduleTransport
 import com.segatto.agilitytransports.AgilityTransports.entity.ScheduleTransportEntity;
 import com.segatto.agilitytransports.AgilityTransports.mapper.ScheduleTransportMapper;
 import com.segatto.agilitytransports.AgilityTransports.service.ScheduleTransportService;
+import io.swagger.v3.oas.annotations.Parameter;
 import jakarta.persistence.EntityNotFoundException;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -33,14 +35,16 @@ public class ScheduleTransportController {
 
     @GetMapping
     @ResponseStatus(code = HttpStatus.OK)
-    public Page<ScheduleTransportEntity> getAllSchedules(Pageable pageable) {
+    public Page<ScheduleTransportEntity> getAllSchedules(@ParameterObject Pageable pageable) {
         return scheduleTransportService.getAllSchedules(pageable);
     }
 
     @GetMapping("/search")
     @ResponseStatus(code = HttpStatus.OK)
-    public Page<ScheduleTransportEntity> getAllSchedulesByFilter(@ModelAttribute ScheduleTransportFilter filter,
-                                                                 @RequestParam(required = false) List<String> sort) {
+    public Page<ScheduleTransportEntity> getAllSchedulesByFilter(@ParameterObject @ModelAttribute ScheduleTransportFilter filter,
+                                                                 @RequestParam(required = false)
+                                                                 @Parameter(name = "sort", description = "Sorting criteria in the format: property,(asc|desc). Default sort order is ascending. Multiple sort criteria are supported.")
+                                                                         List<String> sort) {
         return scheduleTransportService.getAllSchedulesByFilter(filter, sort);
         /*Page<ScheduleTransportEntity> schedules = scheduleTransportService.getAllSchedulesByFilter(filter);
 
