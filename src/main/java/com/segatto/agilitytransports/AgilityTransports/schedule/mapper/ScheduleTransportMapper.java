@@ -1,16 +1,16 @@
-package com.segatto.agilitytransports.AgilityTransports.mapper;
+package com.segatto.agilitytransports.AgilityTransports.schedule.mapper;
 
-import com.segatto.agilitytransports.AgilityTransports.dto.in.ScheduleTransportPostDtoIn;
-import com.segatto.agilitytransports.AgilityTransports.dto.in.ScheduleTransportPutDtoIn;
-import com.segatto.agilitytransports.AgilityTransports.dto.out.ScheduleTransportGetDtoOut;
-import com.segatto.agilitytransports.AgilityTransports.dto.out.ScheduleTransportPostDtoOut;
-import com.segatto.agilitytransports.AgilityTransports.dto.out.ScheduleTransportPutDtoOut;
-import com.segatto.agilitytransports.AgilityTransports.entity.ScheduleTransportEntity;
+import com.segatto.agilitytransports.AgilityTransports.commons.mapper.PageableMapper;
+import com.segatto.agilitytransports.AgilityTransports.schedule.dto.in.ScheduleTransportPostDtoIn;
+import com.segatto.agilitytransports.AgilityTransports.schedule.dto.in.ScheduleTransportPutDtoIn;
+import com.segatto.agilitytransports.AgilityTransports.schedule.dto.out.ScheduleTransportGetDtoOut;
+import com.segatto.agilitytransports.AgilityTransports.schedule.dto.out.ScheduleTransportPostDtoOut;
+import com.segatto.agilitytransports.AgilityTransports.schedule.dto.out.ScheduleTransportPutDtoOut;
+import com.segatto.agilitytransports.AgilityTransports.schedule.entity.ScheduleTransportEntity;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
-
-import java.util.List;
 
 @Component
 public class ScheduleTransportMapper {

@@ -11,6 +11,11 @@ import java.io.IOException;
 @JsonComponent
 public class PageImplJacksonSerializer extends JsonSerializer<PageImpl> {
 
+    /**
+     * When needed, add the code bellow in Repository, before declaration class name
+     * @JsonSerialize(using = PageImplJacksonSerializer.class)
+     */
+
     @Override
     public void serialize(PageImpl page, JsonGenerator jsonGenerator, SerializerProvider serializers) throws IOException {
         jsonGenerator.writeStartObject();

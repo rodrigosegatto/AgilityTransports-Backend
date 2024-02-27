@@ -1,4 +1,4 @@
-package com.segatto.agilitytransports.AgilityTransports.commons;
+package com.segatto.agilitytransports.AgilityTransports.commons.util;
 
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;

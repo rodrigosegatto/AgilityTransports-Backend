@@ -1,4 +1,4 @@
-package com.segatto.agilitytransports.AgilityTransports.entity;
+package com.segatto.agilitytransports.AgilityTransports.schedule.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

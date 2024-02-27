@@ -1,4 +1,4 @@
-package com.segatto.agilitytransports.AgilityTransports.dto.out;
+package com.segatto.agilitytransports.AgilityTransports.schedule.dto.out;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
@@ -12,7 +12,7 @@ import java.time.Instant;
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ScheduleTransportGetDtoOut implements Serializable {
+public class ScheduleTransportPostDtoOut implements Serializable {
 
     private Long id;
     private String signCode;

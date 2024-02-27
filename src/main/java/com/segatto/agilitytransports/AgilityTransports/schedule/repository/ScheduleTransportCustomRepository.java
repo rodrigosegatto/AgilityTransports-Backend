@@ -1,11 +1,9 @@
-package com.segatto.agilitytransports.AgilityTransports.repository;
+package com.segatto.agilitytransports.AgilityTransports.schedule.repository;
 
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.segatto.agilitytransports.AgilityTransports.commons.PageImplJacksonSerializer;
-import com.segatto.agilitytransports.AgilityTransports.commons.PaginationSort;
+import com.segatto.agilitytransports.AgilityTransports.commons.util.PaginationSort;
 import com.segatto.agilitytransports.AgilityTransports.commons.util.Util;
-import com.segatto.agilitytransports.AgilityTransports.filter.ScheduleTransportFilter;
-import com.segatto.agilitytransports.AgilityTransports.entity.ScheduleTransportEntity;
+import com.segatto.agilitytransports.AgilityTransports.schedule.filter.ScheduleTransportFilter;
+import com.segatto.agilitytransports.AgilityTransports.schedule.entity.ScheduleTransportEntity;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 import org.springframework.data.domain.*;
@@ -14,7 +12,6 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-@JsonSerialize(using = PageImplJacksonSerializer.class)
 public class ScheduleTransportCustomRepository {
 
     private final Util util;

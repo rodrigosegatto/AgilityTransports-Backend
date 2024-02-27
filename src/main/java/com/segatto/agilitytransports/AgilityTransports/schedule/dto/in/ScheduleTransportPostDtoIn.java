@@ -1,4 +1,4 @@
-package com.segatto.agilitytransports.AgilityTransports.dto.in;
+package com.segatto.agilitytransports.AgilityTransports.schedule.dto.in;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
@@ -11,7 +11,7 @@ import java.time.Instant;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ScheduleTransportPutDtoIn implements Serializable {
+public class ScheduleTransportPostDtoIn implements Serializable {
 
     @JsonProperty("signCode")
     private String signCode;

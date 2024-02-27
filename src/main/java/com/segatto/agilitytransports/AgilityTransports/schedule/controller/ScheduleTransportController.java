@@ -1,17 +1,23 @@
-package com.segatto.agilitytransports.AgilityTransports.controller;
+package com.segatto.agilitytransports.AgilityTransports.schedule.controller;
 
-import com.segatto.agilitytransports.AgilityTransports.commons.PaginationSort;
+import com.segatto.agilitytransports.AgilityTransports.commons.mapper.PageableMapper;
 import com.segatto.agilitytransports.AgilityTransports.commons.messages.MessagesReturnResponse;
-import com.segatto.agilitytransports.AgilityTransports.filter.ScheduleTransportFilter;
-import com.segatto.agilitytransports.AgilityTransports.dto.in.ScheduleTransportPostDtoIn;
-import com.segatto.agilitytransports.AgilityTransports.dto.in.ScheduleTransportPutDtoIn;
-import com.segatto.agilitytransports.AgilityTransports.dto.out.ScheduleTransportGetDtoOut;
-import com.segatto.agilitytransports.AgilityTransports.dto.out.ScheduleTransportPostDtoOut;
-import com.segatto.agilitytransports.AgilityTransports.dto.out.ScheduleTransportPutDtoOut;
-import com.segatto.agilitytransports.AgilityTransports.entity.ScheduleTransportEntity;
-import com.segatto.agilitytransports.AgilityTransports.mapper.ScheduleTransportMapper;
-import com.segatto.agilitytransports.AgilityTransports.service.ScheduleTransportService;
+import com.segatto.agilitytransports.AgilityTransports.schedule.filter.ScheduleTransportFilter;
+import com.segatto.agilitytransports.AgilityTransports.schedule.dto.in.ScheduleTransportPostDtoIn;
+import com.segatto.agilitytransports.AgilityTransports.schedule.dto.in.ScheduleTransportPutDtoIn;
+import com.segatto.agilitytransports.AgilityTransports.schedule.dto.out.ScheduleTransportGetDtoOut;
+import com.segatto.agilitytransports.AgilityTransports.schedule.dto.out.ScheduleTransportPostDtoOut;
+import com.segatto.agilitytransports.AgilityTransports.schedule.dto.out.ScheduleTransportPutDtoOut;
+import com.segatto.agilitytransports.AgilityTransports.schedule.entity.ScheduleTransportEntity;
+import com.segatto.agilitytransports.AgilityTransports.schedule.mapper.ScheduleTransportMapper;
+import com.segatto.agilitytransports.AgilityTransports.schedule.service.ScheduleTransportService;
+import com.segatto.agilitytransports.AgilityTransports.schedule.response.ScheduleTransportResponse;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.persistence.EntityNotFoundException;
 import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,33 +39,41 @@ public class ScheduleTransportController {
     @Autowired
     private ScheduleTransportMapper scheduleTransportMapper;
 
+    @Autowired
+    private PageableMapper pageableMapper;
+
     @GetMapping
     @ResponseStatus(code = HttpStatus.OK)
-    public Page<ScheduleTransportEntity> getAllSchedules(@ParameterObject Pageable pageable) {
-        return scheduleTransportService.getAllSchedules(pageable);
+    @ApiResponses(
+        value = {
+            @ApiResponse(
+                content = {
+                    @Content(
+                        mediaType = "application/json",
+                        array = @ArraySchema(schema = @Schema(implementation = ScheduleTransportResponse.class)))
+                })
+        })
+    public Page<ScheduleTransportGetDtoOut> getAllSchedules(@ParameterObject Pageable pageable) {
+        Page<ScheduleTransportEntity> schedulesPageable = scheduleTransportService.getAllSchedules(pageable);
+        return pageableMapper.mapEntityPageIntoDtoPage(schedulesPageable, ScheduleTransportGetDtoOut.class);
     }
 
     @GetMapping("/search")
     @ResponseStatus(code = HttpStatus.OK)
-    public Page<ScheduleTransportEntity> getAllSchedulesByFilter(@ParameterObject @ModelAttribute ScheduleTransportFilter filter,
+    public Page<ScheduleTransportGetDtoOut> getAllSchedulesByFilter(@ParameterObject @ModelAttribute ScheduleTransportFilter filter,
                                                                  @RequestParam(required = false)
                                                                  @Parameter(name = "sort", description = "Sorting criteria in the format: property,(asc|desc). Default sort order is ascending. Multiple sort criteria are supported.")
                                                                          List<String> sort) {
-        return scheduleTransportService.getAllSchedulesByFilter(filter, sort);
-        /*Page<ScheduleTransportEntity> schedules = scheduleTransportService.getAllSchedulesByFilter(filter);
-
-        List<ScheduleTransportGetDtoOut> schedulesDtoOut = schedules.stream()
-                .map(schedule -> scheduleTransportMapper.convertEntityToGetDtoOut(schedule))
-                .collect(Collectors.toList());
-
-        return schedulesDtoOut;*/
+        Page<ScheduleTransportEntity> schedulesPageable = scheduleTransportService.getAllSchedulesByFilter(filter, sort);
+        return pageableMapper.mapEntityPageIntoDtoPage(schedulesPageable, ScheduleTransportGetDtoOut.class);
     }
 
     @GetMapping("/search/by-sign-code")
     @ResponseStatus(code = HttpStatus.OK)
-    public Page<ScheduleTransportEntity> getAllSchedules(@RequestParam @Parameter(description = "Sign Code") String signCode,
+    public Page<ScheduleTransportGetDtoOut> getAllSchedules(@RequestParam @Parameter(description = "Sign Code") String signCode,
                                                          @ParameterObject Pageable pageable) {
-        return scheduleTransportService.getAllSchedulesBySignCode(signCode, pageable);
+        Page<ScheduleTransportEntity> schedulesPageable = scheduleTransportService.getAllSchedulesBySignCode(signCode, pageable);
+        return pageableMapper.mapEntityPageIntoDtoPage(schedulesPageable, ScheduleTransportGetDtoOut.class);
     }
 
     @GetMapping("/{id}")
@@ -86,7 +100,7 @@ public class ScheduleTransportController {
     @PutMapping("/{id}")
     @ResponseStatus(code = HttpStatus.OK)
     public ScheduleTransportPutDtoOut updateSchedule(@PathVariable Long id,
-                                                  @RequestBody ScheduleTransportPutDtoIn scheduleDtoIn) {
+                                                     @RequestBody ScheduleTransportPutDtoIn scheduleDtoIn) {
         try {
             ScheduleTransportEntity schedule = scheduleTransportMapper.convertPutDtoInToEntity(scheduleDtoIn);
             schedule = scheduleTransportService.updateSchedule(id, schedule);

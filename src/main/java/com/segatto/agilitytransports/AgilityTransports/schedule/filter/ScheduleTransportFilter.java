@@ -1,4 +1,4 @@
-package com.segatto.agilitytransports.AgilityTransports.filter;
+package com.segatto.agilitytransports.AgilityTransports.schedule.filter;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.segatto.agilitytransports.AgilityTransports.commons.DefaultValuesCustomPaginate;
@@ -27,6 +27,6 @@ public class ScheduleTransportFilter {
     private int size = Integer.parseInt(DefaultValuesCustomPaginate.SIZE);
 
     public int getPage() {
-        return page <= 0 ? page+1 : page;
+        return page <= 0 ? Integer.parseInt(DefaultValuesCustomPaginate.PAGE) : page;
     }
 }

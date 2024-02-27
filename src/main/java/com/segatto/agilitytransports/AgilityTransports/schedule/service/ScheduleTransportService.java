@@ -1,10 +1,9 @@
-package com.segatto.agilitytransports.AgilityTransports.service;
+package com.segatto.agilitytransports.AgilityTransports.schedule.service;
 
-import com.segatto.agilitytransports.AgilityTransports.commons.PaginationSort;
-import com.segatto.agilitytransports.AgilityTransports.filter.ScheduleTransportFilter;
-import com.segatto.agilitytransports.AgilityTransports.entity.ScheduleTransportEntity;
-import com.segatto.agilitytransports.AgilityTransports.repository.ScheduleTransportCustomRepository;
-import com.segatto.agilitytransports.AgilityTransports.repository.ScheduleTransportRepository;
+import com.segatto.agilitytransports.AgilityTransports.schedule.filter.ScheduleTransportFilter;
+import com.segatto.agilitytransports.AgilityTransports.schedule.entity.ScheduleTransportEntity;
+import com.segatto.agilitytransports.AgilityTransports.schedule.repository.ScheduleTransportCustomRepository;
+import com.segatto.agilitytransports.AgilityTransports.schedule.repository.ScheduleTransportRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
