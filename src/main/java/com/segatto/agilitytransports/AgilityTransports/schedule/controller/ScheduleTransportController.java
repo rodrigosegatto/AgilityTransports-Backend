@@ -19,6 +19,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.validation.Valid;
 import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -90,7 +91,7 @@ public class ScheduleTransportController {
 
     @PostMapping
     @ResponseStatus(code = HttpStatus.CREATED)
-    public ScheduleTransportPostDtoOut createSchedule(@RequestBody ScheduleTransportPostDtoIn scheduleDtoIn) {
+    public ScheduleTransportPostDtoOut createSchedule(@RequestBody @Valid ScheduleTransportPostDtoIn scheduleDtoIn) {
         ScheduleTransportEntity schedule = scheduleTransportMapper.convertPostDtoInToEntity(scheduleDtoIn);
         schedule = scheduleTransportService.createSchedule(schedule);
         ScheduleTransportPostDtoOut scheduleDtoOut = scheduleTransportMapper.convertEntityToPostDtoOut(schedule);
