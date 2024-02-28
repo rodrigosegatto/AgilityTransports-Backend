@@ -1,0 +1,1 @@
+alter table schedule_transport add column ds_detail varchar(400);
